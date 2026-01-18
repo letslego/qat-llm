@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qat-llm"
+version = "0.1.0"
+description = "Quantization-Aware Training pipeline for LLMs with fake quantization and PTQ/QAT comparison."
+authors = [{ name = "Your Name", email = "you@example.com" }]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "numpy<2",
+    "torch>=2.2",
+    "transformers>=4.37",
+    "accelerate>=0.27",
+    "datasets>=2.16",
+    "evaluate>=0.4",
+    "tqdm>=4.66",
+    "peft>=0.8",
+    "bitsandbytes>=0.43; platform_system != 'Darwin'",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "black>=23.0", "isort>=5.0"]
+
+[project.scripts]
+qat-train = "qat_llm.cli:main"
+qat-compare = "qat_llm.compare:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"
